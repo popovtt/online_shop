@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqladmin import Admin
 
+from src.admin.product_admin import ProductAdmin
 from src.api import product_router
+from src.utils.db import engine
 
 
 class AppService(FastAPI):
@@ -18,3 +21,5 @@ class AppService(FastAPI):
 
         # Register router
         self.include_router(product_router)
+        self.admin = Admin(self, engine)
+        self.admin.add_view(ProductAdmin)
