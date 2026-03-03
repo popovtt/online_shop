@@ -1,0 +1,31 @@
+from enum import StrEnum
+
+from pydantic import BaseModel, ConfigDict, field_validator, ValidationError
+
+
+class Category(StrEnum):
+    clothes = "Clothes"
+    boots = "Boots"
+    bags = "Bags"
+    accessories = "Accessories"
+
+
+class ProductCreate(BaseModel):
+    title: str
+    description: str
+    price: float
+    category: Category
+
+    @field_validator('title')
+    def title_validator(value: str) -> str:
+        if len(value) < 4:
+            raise ValueError("Title must be at least 4 characters long")  # Correct for v2
+        return value
+
+
+class ProductUpdate(ProductCreate):
+    id: int
+
+
+class Product(ProductUpdate):
+    model_config = ConfigDict(from_attributes=True)
