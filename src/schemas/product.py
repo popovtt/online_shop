@@ -17,7 +17,8 @@ class ProductCreate(BaseModel):
     category: Category
 
     @field_validator('title')
-    def title_validator(value: str) -> str:
+    @classmethod
+    def title_validator(cls, value: str) -> str:
         if len(value) < 4:
             raise ValueError("Title must be at least 4 characters long")  # Correct for v2
         return value
