@@ -1,13 +1,26 @@
 from sqladmin import ModelView
+from sqladmin.filters import OperationColumnFilter
 
 from src.models.product import ProductOrm
 
 
 class ProductAdmin(ModelView, model=ProductOrm):
-    column_list = [
+    name = "Product"
+    name_plural = "Products"
+    icon = "fa-solid fa-shirt"
+
+    column_list = "__all__"
+    column_filters = [
+        OperationColumnFilter(ProductOrm.title),
+        OperationColumnFilter(ProductOrm.price),
+    ]
+    column_sortable_list = [
         "id",
         "title",
-        "description",
         "price",
         "category",
     ]
+    column_searchable_list = ["title"]
+    column_filterable_list = [ProductOrm.category]
+
+    form_excluded_columns = ["created_at", "updated_at"]
