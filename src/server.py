@@ -1,8 +1,19 @@
+from contextlib import asynccontextmanager
+
 import uvicorn
 
 from src.service import AppService
+from utils.db_helper import db_helper
 
-app = AppService()
+
+@asynccontextmanager
+async def lifespan(app: AppService):
+    # startup
+    yield
+    # shutdown
+    await db_helper.dispose()
+
+app = AppService(lifespan=lifespan)
 
 if __name__ == "__main__":
     uvicorn.run("src.server:app")

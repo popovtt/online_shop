@@ -5,14 +5,10 @@ from src.models.base import Base
 
 
 class BaseRepository:
-    def __init__(self, engine: AsyncEngine) -> None:
-        self.__engine = engine
-
-    def _get_session(self) -> AsyncSession:
-        return AsyncSession(self.__engine, expire_on_commit=False)
-
     @staticmethod
-    async def _get_orm_entity(entity_id: int, orm_model: type[Base], session: AsyncSession):
+    async def _get_orm_entity(
+        entity_id: int, orm_model: type[Base], session: AsyncSession
+    ):
         stmt = select(orm_model).where(orm_model.id == entity_id)
         result = await session.execute(stmt)
         return result.scalar_one_or_none()

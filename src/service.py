@@ -4,7 +4,8 @@ from sqladmin import Admin
 
 from src.admin.product_admin import ProductAdmin
 from src.api import product_router
-from src.utils.db import engine
+
+from utils.db_helper import db_helper
 
 
 class AppService(FastAPI):
@@ -21,5 +22,7 @@ class AppService(FastAPI):
 
         # Register router
         self.include_router(product_router)
-        self.admin = Admin(self, engine)
+
+        # Register admin
+        self.admin = Admin(self, db_helper.engine)
         self.admin.add_view(ProductAdmin)
