@@ -487,7 +487,7 @@ requires-dist = [
     { name = "asyncpg", specifier = "==0.31.0" },
     { name = "fastapi", extras = ["standard"], specifier = "==0.135.0" },
     { name = "pydantic-settings", specifier = "==2.13.1" },
-    { name = "sqladmin", extras = ["full"], specifier = ">=0.23.0" },
+    { name = "sqladmin", extras = ["full"], specifier = "==0.23.0" },
     { name = "sqlalchemy", extras = ["asyncio"], specifier = "==2.0.47" },
 ]
 
