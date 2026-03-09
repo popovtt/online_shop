@@ -8,8 +8,8 @@ from fastapi_users.exceptions import UserAlreadyExists
 from src.models.user import UserOrm
 from src.auth.user_manager import UserManager
 from src.schemas.user import UserCreate
-from src.dependencies.auth.user_manager import get_user_manager
-from src.dependencies.auth.users import get_user_db
+from src.dependencies.auth import get_user_manager
+from src.dependencies.auth import get_user_db
 from src.utils.db_helper import db_helper
 
 logging.basicConfig(level=logging.INFO)
