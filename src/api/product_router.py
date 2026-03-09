@@ -3,6 +3,7 @@ from typing import List, Annotated
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.auth.fastapi_users_router import current_superuser
 from src.config import settings
 from src.handlers.product_handler import ProductHandler
 from src.schemas.product import Product, ProductCreate, ProductUpdate
@@ -34,7 +35,7 @@ async def get_all(
     return products
 
 
-@router.post("/", response_model=Product)
+@router.post("/", response_model=Product, dependencies=[Depends(current_superuser)])
 async def create_product(
     product: ProductCreate,
     session: Annotated[AsyncSession, Depends(db_helper.session_dependency)],
@@ -42,7 +43,7 @@ async def create_product(
     return await ProductHandler.create(product, session)
 
 
-@router.put("/", response_model=Product)
+@router.put("/", response_model=Product, dependencies=[Depends(current_superuser)])
 async def update_product(
     product: ProductUpdate,
     session: Annotated[AsyncSession, Depends(db_helper.session_dependency)],
@@ -55,7 +56,7 @@ async def update_product(
     return updated_product
 
 
-@router.delete("/{product_id}")
+@router.delete("/{product_id}", dependencies=[Depends(current_superuser)])
 async def delete_product(
     product_id: int,
     session: Annotated[AsyncSession, Depends(db_helper.session_dependency)],
