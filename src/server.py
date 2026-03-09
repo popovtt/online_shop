@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 import uvicorn
 
 from src.service import AppService
-from utils.db_helper import db_helper
+from src.utils.db_helper import db_helper
 
 
 @asynccontextmanager

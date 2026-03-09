@@ -1,6 +1,6 @@
 from enum import StrEnum
 
-from pydantic import BaseModel, ConfigDict, field_validator, ValidationError
+from pydantic import BaseModel, ConfigDict, field_validator
 
 
 class Category(StrEnum):
@@ -16,11 +16,13 @@ class ProductCreate(BaseModel):
     price: float
     category: Category
 
-    @field_validator('title')
+    @field_validator("title")
     @classmethod
     def title_validator(cls, value: str) -> str:
         if len(value) < 4:
-            raise ValueError("Title must be at least 4 characters long")  # Correct for v2
+            raise ValueError(
+                "Title must be at least 4 characters long"
+            )  # Correct for v2
         return value
 
 

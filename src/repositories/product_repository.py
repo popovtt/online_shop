@@ -19,9 +19,7 @@ class ProductRepository(BaseRepository):
         return [product.to_product() for product in result.scalars().all()]
 
     @staticmethod
-    async def create(
-        product_create: ProductCreate, session: AsyncSession
-    ) -> Product:
+    async def create(product_create: ProductCreate, session: AsyncSession) -> Product:
         orm_product = ProductOrm.from_product(product_create)
         session.add(orm_product)
 
@@ -44,10 +42,10 @@ class ProductRepository(BaseRepository):
 
         return orm_product.to_product()
 
-    async def delete(
-        self, product_id: int, session: AsyncSession
-    ) -> bool:
-        if not (orm_product := await self._get_orm_entity(product_id, ProductOrm, session)):
+    async def delete(self, product_id: int, session: AsyncSession) -> bool:
+        if not (
+            orm_product := await self._get_orm_entity(product_id, ProductOrm, session)
+        ):
             return False
 
         await session.delete(orm_product)

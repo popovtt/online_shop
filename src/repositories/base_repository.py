@@ -1,5 +1,5 @@
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.models.base import Base
 
@@ -9,7 +9,7 @@ class BaseRepository:
     async def _get_orm_entity(
         entity_id: int, orm_model: type[Base], session: AsyncSession
     ):
-        stmt = select(orm_model).where(orm_model.id == entity_id)
+        stmt = select(orm_model).where(orm_model.id == entity_id)  # type: ignore
         result = await session.execute(stmt)
         return result.scalar_one_or_none()
 
@@ -19,5 +19,3 @@ class BaseRepository:
     ) -> None:
         for field, value in updated_entity.items():
             setattr(orm_entity, field, value)
-
-

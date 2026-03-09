@@ -16,9 +16,7 @@ class ProductOrm(TimestampMixin, Base):
     description: Mapped[str] = mapped_column(String, nullable=True)
     price: Mapped[float] = mapped_column(Float, nullable=False)
     category: Mapped[Category] = mapped_column(
-        Enum(Category),
-        default=Category.clothes,
-        nullable=True
+        Enum(Category), default=Category.clothes, nullable=True
     )
 
     def to_product(self) -> Product:
