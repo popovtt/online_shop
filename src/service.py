@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqladmin import Admin
 
 from src.config import settings
-from src.admin.product_admin import ProductAdmin
+from src.admin import ProductAdmin, UserAdmin
 from src.api import product_router, auth_router, users_router
 
 from src.utils.db_helper import db_helper
@@ -31,3 +31,4 @@ class AppService(FastAPI):
         # Register admin
         self.admin = Admin(self, db_helper.engine)
         self.admin.add_view(ProductAdmin)
+        self.admin.add_view(UserAdmin)

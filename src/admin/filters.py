@@ -1,5 +1,3 @@
-
-
 class EnumFilter:
     title = "Category"
     parameter_name = "category"

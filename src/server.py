@@ -13,6 +13,7 @@ async def lifespan(app: AppService):
     # shutdown
     await db_helper.dispose()
 
+
 app = AppService(lifespan=lifespan)
 
 if __name__ == "__main__":
