@@ -1,6 +1,8 @@
 from sqladmin import ModelView
 from sqladmin.filters import OperationColumnFilter
 
+from src.schemas.product import Category
+from src.admin.filters import EnumFilter
 from src.models.product import ProductOrm
 
 
@@ -13,6 +15,7 @@ class ProductAdmin(ModelView, model=ProductOrm):
     column_filters = [
         OperationColumnFilter(ProductOrm.title),
         OperationColumnFilter(ProductOrm.price),
+        EnumFilter(ProductOrm.category, Category),
     ]
     column_sortable_list = [
         "id",
