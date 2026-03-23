@@ -47,6 +47,11 @@ class AuthJWT(BaseModel):
     algorithm: str = "HS256"
 
 
+class Mailing(BaseModel):
+    hostname: str
+    port: int
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         case_sensitive=False,
@@ -57,6 +62,7 @@ class Settings(BaseSettings):
     db: DatabaseConfig
     access_token: AccessToken
     auth: AuthJWT = AuthJWT()
+    mailing: Mailing
 
 
 @lru_cache
